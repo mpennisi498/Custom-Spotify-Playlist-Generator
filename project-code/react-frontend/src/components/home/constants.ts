@@ -1,4 +1,5 @@
 export const GENRES = [
+    'No Genre',
     'Acoustic',
     'Afrobeat',
     'Alt-rock',
