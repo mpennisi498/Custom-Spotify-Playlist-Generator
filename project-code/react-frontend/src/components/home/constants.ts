@@ -1,4 +1,6 @@
+//All genres from Spotify Dataset
 export const GENRES = [
+    'No Genre',
     'Acoustic',
     'Afrobeat',
     'Alt-rock',
