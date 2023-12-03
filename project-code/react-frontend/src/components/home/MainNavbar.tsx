@@ -21,10 +21,6 @@ export default function MainNavbar() {
         <Navbar.Brand href="home" style={{fontSize:"30px"}}>Playlist Generator</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav>
-            <Nav.Link href="home" style={{color:"#1bd760", fontSize:"20px"}}>Home</Nav.Link>
-            <Nav.Link href="about" style={{color:"#1bd760",fontSize:"20px"}} >About</Nav.Link>
-          </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>

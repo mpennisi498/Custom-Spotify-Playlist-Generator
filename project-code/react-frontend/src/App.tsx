@@ -4,6 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import MainNavbar from "./components/home/MainNavbar";
 
 function App() {
+
+
   return(
   <div>
     <MainNavbar />

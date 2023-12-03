@@ -1,59 +1,81 @@
-import { type } from "os";
 import { GENRES } from "./constants";
-import React, { useState,useEffect } from 'react';
-import Dropdown from 'react-bootstrap/Dropdown';
-import Form from 'react-bootstrap/Form';
+import { FormCheck } from "react-bootstrap";
+import Dropdown from "react-bootstrap/Dropdown";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import { useState } from "react";
 
 
-export default function Filters() {
-  const [genre, setGenre] = useState("");
+
+export default function Filters({searchPlaylist}: any) {
+  const [genre, setGenre] = useState("Select Genre");
+  const [artist, setArtist] = useState("");
   const [explicit, setExplicit] = useState(false);
-  const [popularity, setPopularity] = useState(false);
+  const [maxSongs, setMaxSongs] = useState(0);
 
-  const handleGenreChange = (eventKey:string) => {
-    setGenre(eventKey);
-    console.log(genre);
+  const handleGenreChange = (event: any) => {
+    setGenre(event);
+  };
+
+  const handleArtistChange = (event: any) => {
+    setArtist(event.target.value);
+  };
+
+  const handleExplicitChange = (event: any) => {
+    setExplicit(event.target.checked);
+  };
+
+  const handleMaxSongsChange = (event: any) => {
+    setMaxSongs(event.target.value);
   }
 
-  const handleExplicitChange = (explicit: boolean) => {
-    setExplicit(explicit);
-  }
-
-  const handlePopularityChange = (popularity: boolean) => {
-    setPopularity(popularity);
-  }
-
-
+  
   return (
-    <div style={{ width: "25%", height: "100vh", backgroundColor: "#817f7f" }}>
-      <h1>Filters Go Here</h1>
-      <Dropdown>
-        <Dropdown.Toggle variant="success" id="dropdown-basic" >
-          {genre === "" ? " Select Genre" : genre}
+    <div style={{ width: "25%", height: "450vh", backgroundColor: "#817f7f" }}>
+      <h1>Filters</h1>
+      <h3>Select Genre</h3>
+      <Dropdown onSelect={(key) => handleGenreChange(key)}>
+        <Dropdown.Toggle variant="success" id="dropdown-basic">
+          {genre}
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
           {GENRES.map((genre) => (
-            <Dropdown.Item eventKey={genre}>{genre}</Dropdown.Item>
+            <Dropdown.Item key={genre} eventKey={genre}>
+              {genre}
+            </Dropdown.Item>
           ))}
         </Dropdown.Menu>
       </Dropdown>
-      <div>
-      <Form>
-        <Form.Group controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" label="Explicit" />
-        </Form.Group>
-      </Form>
+      <p style={{ fontSize: "10px" }}>
+        Choose a genre to generate a playlist from (Optional)
+      </p>
+      <h3>Artist</h3>
+      <Form.Control
+        style={{ width: "50%" }}
+        type="text"
+        placeholder="Enter an Artist"
+        onChange={handleArtistChange}
+      />
+      <p style={{ fontSize: "10px" }}>
+        Choose an artist to generate a playlist from (Optional)
+      </p>
+      <h3>Explicit</h3>
+      <FormCheck type="checkbox" label="Explicit?" onClick={handleExplicitChange} />
+      <p style={{ fontSize: "10px" }}>
+        Choose whether or not to include explicit songs (Optional)
+      </p>
+      <h3>Max Number of Songs</h3>
+      <Form.Control
+        style={{ width: "50%"}}
+        type="number"
+        placeholder="Enter a number"
+        onChange={handleMaxSongsChange}
+      />
+      <p style={{ fontSize: "10px" }}>
+        Choose the max number of songs to include in the playlist (Required)
+      </p>
+      <Button variant="success" onClick={()=>searchPlaylist(genre,artist,explicit,maxSongs)}>Generate Playlist!</Button>{" "}
     </div>
-    <div>
-      <Form>
-        <Form.Group controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" label="Rank by Popularity" />
-        </Form.Group>
-      </Form>
-    </div>
-    </div>
-    
   );
 }
-
