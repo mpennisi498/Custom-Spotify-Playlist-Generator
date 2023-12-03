@@ -1,3 +1,4 @@
+#Jeffery James
 class Node:
   def __init__(self,popularity, songID,artist, songName,genre,explicit):
     self.songName = songName
@@ -33,6 +34,7 @@ class RedBlackTree:
 
 
   def insertNode(self, node):
+    #Inserts node into tree based on popularity
     parent = None
     current = self.root
     while current != self.leaf:
@@ -51,6 +53,7 @@ class RedBlackTree:
       parent.right = node
   
   def rbTreeBalance(self, node):
+    #Balances tree using rb tree properties
     while node.parent is not None and node.parent.colorRed and node != self.root:
       #used to determine if if uncle is left or right node
       if node.parent == node.parent.parent.right:
@@ -123,49 +126,51 @@ class RedBlackTree:
         return '\n'.join(lines)
   
   def searchArtist(self,node, target_artist):
+       #Searches for artist in tree if node has the artist or artist is not being filtered adds to songTray
        if node!= self.leaf:
         self.searchArtist(node.left, target_artist)
-        if node.artist == target_artist:
+        if node.artist == target_artist or target_artist == '':
             self.songTray.append(node)
         self.searchArtist(node.right, target_artist)
   
   def searchGenre(self,node, target_genre):
+       #Searches for genre in tree if node has the genre or genre is not being filtered adds to songTray
        if node!= self.leaf:
         self.searchGenre(node.left, target_genre)
-        if node.genre == target_genre:
+        if node.genre == target_genre or target_genre == '':
             self.songTray.append(node)
         self.searchGenre(node.right, target_genre)
   
   def searchExplicit(self,node, target_explicit):
-       if node!= self.leaf:
+        #Searches for explicit in tree if node has the explicit or explicit is not being filtered adds to songTray
+       if node != self.leaf:
         self.searchExplicit(node.left, target_explicit)
-        if node.explicit == target_explicit:
+        if node.explicit == target_explicit or target_explicit == '':
             self.songTray.append(node)
         self.searchExplicit(node.right, target_explicit)
 
-  def search(self,target_artist,target_genre,target_explicit):
-  
+  def search(self,target_artist,target_genre,target_explicit,maxSongs):
     sortedArray = set()
+
     self.searchArtist(self.root,target_artist)
     self.searchExplicit(self.root,target_explicit)
     self.searchGenre(self.root,target_genre)
+
     for song in self.songTray:
-       if song.artist == target_artist and song.genre == target_genre and song.explicit == target_explicit:
-           sortedArray.add(song.songID)
-    return sortedArray
+        #Adds songs to sortedArray if they are in the songTray and the songTray is not full and the song hits all the filters
+        if song.artist == target_artist or target_artist == '':
+          if song.genre == target_genre or target_genre == '':
+            if song.explicit == str(target_explicit) or target_explicit == 'True':
+              if(len(sortedArray) < maxSongs):
+                sortedArray.add(song.songID)
+              elif(len(sortedArray) == maxSongs):
+                break
+
+    return sortedArray  
+
 
 
 def print_tree(node, lines,level=0):
-  # if node is None:
-  #     return
-  # space += 10
-   
-  # print_tree(node.right, space)
-  # print()
-  # for i in range(10, space):
-  #       print(" ", end="")
-  # print(str(node.songName))
-  # print_tree(node.left, space)
     if node.popularity != 0:
         print_tree(node.left, lines, level + 1)
         lines.append('-' * 4 * level + '> ' +

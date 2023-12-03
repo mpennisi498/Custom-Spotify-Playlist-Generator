@@ -6,7 +6,7 @@ import math
 # https://www.geeksforgeeks.org/python-dictionary/
 # https://www.geeksforgeeks.org/floor-ceil-function-python/
 # Discussion 7 - Exam 1 Review slides
-
+# Anthony Zurita
 
 
 class MaxHeap:
@@ -47,7 +47,7 @@ class MaxHeap:
 
     def insertNode(self, popularity, ID, artistName, genre, explicit):
         # a node will be a dictionary holding important info
-        node = {'popularity': popularity, 'ID': ID, 'artistName': artistName, 'genre': genre, 'explicit': bool(explicit)}
+        node = {'popularity': popularity, 'ID': ID, 'artistName': artistName, 'genre': genre, 'explicit': explicit}    
 
         # if nothing in the heap then insert at index one and increment size
         if self.heapsize == 0:
