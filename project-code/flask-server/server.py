@@ -92,7 +92,7 @@ def makePlaylist(tracks):
 
 
 @app.route('/api/home', methods=['POST'])
-def return_home():
+def return_playlist():
     rbTime, heapTime = addData()
     
     #Filters data from user input
